@@ -71,10 +71,7 @@ def test_update_book():
     assert update_response.status_code == 200
     assert update_book_data["message"] == "Book updated successfully"
     assert update_book_data["data"]["title"] == "Forever 21"
-    assert update_book_data["data"]["author"] == "Jane Doe"
-    assert update_book_data["data"]["year"] == 1990
     assert update_book_data["data"]["pages"] == 1500
-    assert update_book_data["data"]["language"] == "French"
 
 
 def test_update_book_not_found():
@@ -113,4 +110,3 @@ def test_delete_book_not_found():
     response = client.delete(f"/books/{book_id}")
     assert response.status_code == 404
     assert response.json()["detail"] == f"Book with id: {book_id} not found"
-

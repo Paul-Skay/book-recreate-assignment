@@ -1,17 +1,10 @@
-# built-in libraries
-from uuid import UUID
-# installed libraries
-from fastapi import APIRouter, HTTPException, status, Depends
-from typing import Annotated
-# code libraries/folder
+from fastapi import APIRouter, HTTPException, status
 from database import users
 from schemas.user import Response, UserCreate, UserUpdate
 from services.user import user_service
 
 
 user_router = APIRouter()
-
-
 
 
 @user_router.get("")
@@ -24,7 +17,10 @@ def get_user_by_id(id: str):
     user = user_service.get_user_by_id(id)
     if not user:
         raise HTTPException(status_code=404, detail="user not found.")
-    return user
+    return {
+        "message": "user retrieved successfully",
+        "data": user
+    }
 
 
 @user_router.post("", status_code=status.HTTP_201_CREATED)

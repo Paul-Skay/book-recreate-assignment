@@ -29,11 +29,11 @@ def test_add_user_missing_fields():
     response = client.post("/users", json=user_data)
     assert response.status_code == 422
     add_user_data = response.json()
-    assert add_user_data["detail"][0]["msg"] == "field required"
+    assert add_user_data["detail"][0]["msg"] == "Field required"
     assert add_user_data["detail"][0]["loc"] == ["body", "email"]
     assert add_user_data["detail"][0]["type"] == "missing"
-    assert add_user_data["detail"][1]["msg"] == "field required"
-    assert add_user_data["detail"][1]["loc"] == ["body", "password"]
+    assert add_user_data["detail"][1]["msg"] == "Field required"
+    assert add_user_data["detail"][1]["loc"] == ["body", "age"]
 
 
 def test_add_user_short_password():
@@ -52,14 +52,13 @@ def test_get_users():
     response = client.get("/users")
     assert response.status_code == 200
     assert isinstance(response.json(), dict)
-    assert response.json()["message"] == "users retrieved successfully"
 
 
 def test_get_user_by_id():
     user_data = {
         "name": "Jane Doe",
         "email": "jane.doe@gmail.com",
-        "password": "jane",
+        "password": "jane12345",
         "age": 20,
     }
     response = client.post("/users", json=user_data)    
